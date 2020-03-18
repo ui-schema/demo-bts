@@ -114,8 +114,7 @@ const data1 = {
 
 const Editor = () => {
     const [showValidity, setShowValidity] = React.useState(false);
-    const [validity, setValidity] = React.useState(createMap());
-    const [store, setStore] = React.useState(() => createStore(createOrderedMap({})));
+    const [store, setStore] = React.useState(() => createStore(createOrderedMap(data1)));
     const [schema, setSchema] = React.useState(schema1);
 
    /* React.useEffect(() => {
@@ -140,9 +139,7 @@ const Editor = () => {
             store={store}
             onChange={setStore}
             widgets={widgets}
-            validity={validity}
             showValidity={showValidity}
-            onValidity={setValidity}
         >
             {/*
                 add children that should be under the schema editor,
@@ -153,9 +150,9 @@ const Editor = () => {
         <button
             className={["btn", "btn-primary", "my-2"].join(' ')}
             onClick={() => {
-                console.log('data-store: ', store.toJS());
-                console.log('is-invalid: ', !!isInvalid(validity));
-                isInvalid(validity) ?
+                console.log('data-store: ', store.getValues().toJS());
+                console.log('is-invalid: ', !!isInvalid(store.getValidity()));
+                isInvalid(store.getValidity()) ?
                     setShowValidity(true) :
                     console.log('should do some action here')
             }}
