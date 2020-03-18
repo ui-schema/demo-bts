@@ -1,16 +1,20 @@
 import React from 'react';
-import {SchemaEditor, isInvalid, createMap, createOrderedMap, createStore} from "@ui-schema/ui-schema";
-import {Link} from "react-router-dom";
+import {SchemaEditor, isInvalid, createOrderedMap, createStore} from "@ui-schema/ui-schema";
 import {widgets,} from "@ui-schema/ds-bootstrap";
 
 
 const schema1 =  createOrderedMap({
     type: "object",
-    title: "headline",
-    /*view: {
-        sizeMd: 6,
-    },*/
+    title: "demo-bts",
     properties: {
+        headline: {
+            type: "string",
+            minLength: 2,
+            maxLength: 30,
+            view: {
+                sizeMd: 12,
+            }
+        },
         name: {
             type: "string",
             minLength: 2,
@@ -32,37 +36,6 @@ const schema1 =  createOrderedMap({
                 sizeMd: 12
             }
         },
-        /*
-        sizeDef: {
-            type: "string",
-            widget: "OptionsRadio",
-            default: "middle",
-            view: {
-                sizeMd: 3
-            },
-            enum: [
-                'small',
-                'middle',
-                'big',
-            ],
-        },
-        layouts: {
-            type: "array",
-            widget: "OptionsCheck",
-            view: {
-                sizeMd: 3
-            },
-            enum: [
-                'sidebar_left',
-                'sidebar_right',
-                'notice',
-                'content',
-                'footer',
-            ],
-            default: [
-                'sidebar_left'
-            ],
-        }, */
         address: {
             type: "object",
             properties: {
@@ -114,24 +87,24 @@ const data1 = {
 
 const Editor = () => {
     const [showValidity, setShowValidity] = React.useState(false);
-    const [store, setStore] = React.useState(() => createStore(createOrderedMap(data1)));
-    const [schema, setSchema] = React.useState(schema1);
+    const [store, setStore] = React.useState(undefined);
+    const [schema, setSchema] = React.useState(undefined);
 
-   /* React.useEffect(() => {
+    React.useEffect(() => {
         // simulating getting `schema` and `data` from an API
         setTimeout(() => {
-            setData(createOrderedMap(data1));
+            setStore(createStore(createOrderedMap(data1)));
             setSchema(createOrderedMap(schema1));
         }, 1200);
-    }, [setData, setSchema]);
+    }, [setStore, setSchema]);
 
-    if(!data || !schema) return <div style={{textAlign: 'center', margin: '75px 0'}}>
+    if(!store || !schema) return <div style={{textAlign: 'center', margin: '75px 0'}}>
         <svg className={["bi", "bi-arrow-repeat"]} width="32" height="32" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" d="M6.646 3.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L12.293 10 6.646 4.354a.5.5 0 010-.708z" clipRule="evenodd"/>
         </svg>
 
         <p>Loading Schema</p>
-    </div>; */
+    </div>;
 
     return <React.Fragment>
         <SchemaEditor
@@ -163,7 +136,9 @@ const Editor = () => {
         </p>
         <hr style={{opacity: 0.2}}/>
         <p>
-            Code of this form/schema: <Link to={'https://github.com/ui-schema/demo-cra/blob/master/src/Schema/DemoEditor.js'}>src/Schema/DemoEditor.js</Link>
+            Code of this form/schema: <a target="_blank"
+                                         rel="noopener noreferrer"
+                                         href={'https://github.com/ui-schema/demo-cra/blob/master/src/Schema/DemoEditor.js'}>src/Schema/DemoEditor.js</a>
         </p>
     </React.Fragment>;
 };
