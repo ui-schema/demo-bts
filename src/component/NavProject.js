@@ -6,17 +6,17 @@ export default () => <React.Fragment>
         <span role={'img'} aria-label={'Quick Evaluate CodeSandbox'}>🚀</span>{' '}
         <a target="_blank"
            rel="noopener noreferrer"
-           href={'https://codesandbox.io/s/github/ui-schema/bts-demo'}>Run on CodeSandbox</a>
+           href={'https://codesandbox.io/s/github/ui-schema/demo-bts/tree/master/?autoresize=1&fontsize=12&hidenavigation=1&module=%2Fsrc%2FSchema%2FDemoEditor.js'}>Run on CodeSandbox</a>
     </p>
     <hr style={{opacity: 0.1, margin: '4px 0 4px 26px'}}/>
     <p>
         <span role={'img'} aria-label={'Quick Evaluate Repl.it'}>🚀</span>{' '}
         <a target="_blank"
            rel="noopener noreferrer"
-           href={'https://repl.it/@elbakerino/ui-schema-cra'}>Repl.it Run</a>&nbsp;|&nbsp;
+           href={'https://repl.it/@carolinholat/demo-bts'}>Repl.it Run</a>&nbsp;|&nbsp;
         <a target="_blank"
            rel="noopener noreferrer"
-           href={'https://repl.it/github/ui-schema/demo-cra'}>Repl.it Clone</a>
+           href={'https://repl.it/github/ui-schema/demo-bts'}>Repl.it Clone</a>
     </p>
     <hr style={{opacity: 0.1, margin: '4px 0 4px 26px'}}/>
     <p>
