@@ -1,0 +1,46 @@
+import {createMap} from '@ui-schema/ui-schema/createMap';
+import {makeTranslator} from '@ui-schema/ui-schema/Translator';
+import * as en from '@ui-schema/dictionary/en'
+import * as de from '@ui-schema/dictionary/de'
+
+const icons = {};
+
+const dicEN = createMap({
+    error: en.errors,
+    labels: {...en.labels},
+    widget: {
+        stepper: {
+            "step-1": {
+                surname: {title: "Surname"}
+            }
+        },
+        qty: {title: "Quantity"},
+    },
+    icons,
+});
+
+const dicDE = createMap({
+    error: de.errors,
+    labels: {...de.labels},
+    widget: {
+        stepper: {
+            "step-1": {
+                surname: {title: "Nachname"}
+            }
+        },
+        headline: {title: "Überschrift"},
+        qty: {title: "Anzahl"},
+        length: {title: "Länge"},
+    },
+    icons,
+});
+
+const tEN = makeTranslator(dicEN, 'en');
+const tDE = makeTranslator(dicDE, 'de');
+
+const browserT = (text, context, schema) => {
+    const locale = window.localStorage.getItem('locale') || navigator.language;
+    return locale === 'de' ? tDE(text, context, schema) : tEN(text, context, schema);
+};
+
+export {browserT}

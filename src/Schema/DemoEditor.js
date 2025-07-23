@@ -1,9 +1,52 @@
 import React from 'react';
-import {SchemaEditor, isInvalid, createOrderedMap, createStore} from "@ui-schema/ui-schema";
-import {widgets,} from "@ui-schema/ds-bootstrap";
+import { createOrderedMap } from '@ui-schema/ui-schema/createMap'
+import { UIMetaProvider } from '@ui-schema/react/UIMeta'
+import { UIStoreProvider, createStore } from '@ui-schema/react/UIStore'
+import { storeUpdater } from '@ui-schema/react/storeUpdater'
+import { WidgetEngine } from '@ui-schema/react/WidgetEngine'
+import { browserT } from '../t';
+import { DefaultHandler } from '@ui-schema/react/DefaultHandler';
+import { ValidityReporter } from '@ui-schema/react/ValidityReporter';
+import { schemaPluginsAdapterBuilder } from '@ui-schema/react/SchemaPluginsAdapter';
+import {
+    requiredPlugin,
+    requiredValidatorLegacy,
+    standardValidators,
+    Validator,
+    validatorPlugin
+} from '@ui-schema/json-schema';
+import { SchemaGridHandler } from '@ui-schema/ds-bootstrap/Grid';
+import { GridContainer } from '@ui-schema/ds-bootstrap/GridContainer';
+import { widgets } from "@ui-schema/ds-bootstrap/BindingDefault";
+import { isInvalid } from "@ui-schema/react/isInvalid";
 
+/**
+ *
+ * @type {import('@ui-schema/ds-material/Binding').BtsBinding}
+ */
+const customBinding = {
+    ...widgets,
+    widgetPlugins: [
+        DefaultHandler,
+        schemaPluginsAdapterBuilder([
+            validatorPlugin,
+            requiredPlugin,
+        ]),
+        SchemaGridHandler, // use `import {GridItemPlugin} from '@ui-schema/ds-material/GridItemPlugin'` for MUI v7
+        ValidityReporter,
+    ],
+    // widgets: {
+    //     ...typeWidgets,
+    //     ...bindingExtended,
+    // },
+}
 
-const schema1 =  createOrderedMap({
+const validator = Validator([
+    ...standardValidators,
+    requiredValidatorLegacy,
+])
+
+const schema1 = {
     type: "object",
     title: "demo-bts",
     properties: {
@@ -36,6 +79,68 @@ const schema1 =  createOrderedMap({
                 sizeMd: 12
             }
         },
+        coffee: {
+            type: "string",
+            widget: "OptionsRadio",
+            default: "milk",
+            view: {
+                sizeMd: 3
+            },
+            enum: [
+                'milk',
+                'sugar',
+                'black',
+            ],
+            t: {
+                de: {
+                    title: 'Kaffee',
+                    enum: {
+                        milk: 'Milch',
+                        sugar: 'Zucker',
+                        black: 'Schwarz'
+                    }
+                },
+                en: {
+                    title: 'Coffee',
+                    enum: {
+                        milk: 'milk',
+                        sugar: 'sugar',
+                        black: 'black'
+                    }
+                }
+            },
+        },
+        cake: {
+            type: "array",
+            widget: "OptionsCheck",
+            view: {
+                sizeMd: 3
+            },
+            items: {
+                oneOf: [
+                    {
+                        const: 'cheesecake',
+                        t: {
+                            de: {
+                                title: 'Käsekuchen',
+                            },
+                            en: {
+                                title: 'Cheesecake',
+                            },
+                        },
+                    },
+                    {
+                        const: 'chocolate',
+                    },
+                    {
+                        const: 'donut'
+                    }
+                ],
+            },
+            default: [
+                'cheesecake'
+            ],
+        },
         address: {
             type: "object",
             properties: {
@@ -63,7 +168,8 @@ const schema1 =  createOrderedMap({
                         sizeMd: 12
                     }
                 },
-            }
+            },
+            required: ['country'],
         },
         birthday: {
             type: "string",
@@ -79,7 +185,7 @@ const schema1 =  createOrderedMap({
             }
         },
     }
-});
+};
 
 const data1 = {
     headline: 'Some Demo Content Headline',
@@ -98,6 +204,10 @@ const Editor = () => {
         }, 1200);
     }, [setStore, setSchema]);
 
+    const onChange = React.useCallback((actions) => {
+        setStore(storeUpdater(actions))
+    }, [setStore])
+
     if(!store || !schema) return <div style={{textAlign: 'center', margin: '75px 0'}}>
         <svg className={["bi", "bi-arrow-clockwise"].join(' ')} width="32" height="32" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" d="M10 4.5a5.5 5.5 0 105.5 5.5.5.5 0 011 0 6.5 6.5 0 11-3.25-5.63l-.5.865A5.472 5.472 0 0010 4.5z" clipRule="evenodd"/>
@@ -108,18 +218,21 @@ const Editor = () => {
     </div>;
 
     return <React.Fragment>
-        <SchemaEditor
-            schema={schema}
-            store={store}
-            onChange={setStore}
-            widgets={widgets}
-            showValidity={showValidity}
+        <UIMetaProvider
+            binding={customBinding}
+            t={browserT}
+            validate={validator.validate}
         >
-            {/*
-                add children that should be under the schema editor,
-                they can use the context of the editor for working
-            */}
-        </SchemaEditor>
+            <UIStoreProvider
+                store={store}
+                onChange={onChange}
+                showValidity={showValidity}
+            >
+                <GridContainer>
+                    <WidgetEngine isRoot schema={schema}/>
+                </GridContainer>
+            </UIStoreProvider>
+        </UIMetaProvider>
 
         <button
             className={["btn", "btn-primary", "my-2"].join(' ')}
@@ -130,7 +243,8 @@ const Editor = () => {
                     setShowValidity(true) :
                     console.log('should do some action here')
             }}
-        >send!</button>
+        >send!
+        </button>
 
         <p>
             See <code>console.log</code> after clicking on <code>SEND!</code>
