@@ -17,7 +17,9 @@ import {
 } from '@ui-schema/json-schema';
 import { SchemaGridHandler } from '@ui-schema/ds-bootstrap/Grid';
 import { GridContainer } from '@ui-schema/ds-bootstrap/GridContainer';
-import { widgets } from "@ui-schema/ds-bootstrap/BindingDefault";
+import { bindingComponents } from '@ui-schema/ds-bootstrap/Binding/Components'
+import { widgetsDefault } from '@ui-schema/ds-bootstrap/Binding/WidgetsDefault'
+import { widgetsExtended } from '@ui-schema/ds-bootstrap/Binding/WidgetsExtended'
 import { isInvalid } from "@ui-schema/react/isInvalid";
 
 /**
@@ -25,7 +27,7 @@ import { isInvalid } from "@ui-schema/react/isInvalid";
  * @type {import('@ui-schema/ds-material/Binding').BtsBinding}
  */
 const customBinding = {
-    ...widgets,
+    ...bindingComponents,
     widgetPlugins: [
         DefaultHandler,
         schemaPluginsAdapterBuilder([
@@ -35,10 +37,10 @@ const customBinding = {
         SchemaGridHandler, // use `import {GridItemPlugin} from '@ui-schema/ds-material/GridItemPlugin'` for MUI v7
         ValidityReporter,
     ],
-    // widgets: {
-    //     ...typeWidgets,
-    //     ...bindingExtended,
-    // },
+    widgets: {
+        ...widgetsDefault,
+        ...widgetsExtended,
+    },
 }
 
 const validator = Validator([
