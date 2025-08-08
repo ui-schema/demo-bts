@@ -219,6 +219,8 @@ const Editor = () => {
         <p>Loading Schema</p>
     </div>;
 
+    const invalid = isInvalid(store.getValidity())
+
     return <React.Fragment>
         <UIMetaProvider
             binding={customBinding}
@@ -236,12 +238,20 @@ const Editor = () => {
             </UIStoreProvider>
         </UIMetaProvider>
 
+        <div>
+            <p
+                className={['w-100', 'mt-3', 'mb-1', invalid ? 'text-danger' : 'text-success'].join(' ')}
+            >
+                {invalid ? 'Form is invalid.' : 'Form is valid.'}
+            </p>
+        </div>
+
         <button
-            className={["btn", "btn-primary", "my-2"].join(' ')}
+            className={['btn', 'btn-primary', 'my-2'].join(' ')}
             onClick={() => {
                 console.log('data-store: ', store.getValues().toJS());
-                console.log('is-invalid: ', !!isInvalid(store.getValidity()));
-                isInvalid(store.getValidity()) ?
+                console.log('is-invalid: ', !!invalid);
+                invalid ?
                     setShowValidity(true) :
                     console.log('should do some action here')
             }}
@@ -255,7 +265,7 @@ const Editor = () => {
         <p>
             Code of this form/schema: <a target="_blank"
                                          rel="noopener noreferrer"
-                                         href={'https://github.com/ui-schema/demo-cra/blob/master/src/Schema/DemoEditor.js'}>src/Schema/DemoEditor.js</a>
+                                         href={'https://github.com/ui-schema/demo-cra/blob/master/src/components/DemoEditor.jsx'}>src/components/DemoEditor.jsx</a>
         </p>
     </React.Fragment>;
 };

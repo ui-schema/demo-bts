@@ -1,18 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import {PageNotFound} from "./component/PageNotFound";
-import NavProject from "./component/NavProject";
-import DemoEditor from "./Schema/DemoEditor";
+import NavProject from "./components/NavProject";
+import DemoEditor from "./components/DemoEditor";
 
-
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom";
-
-
-function PageMain() {
+export default function App() {
     return (
         <div className="container">
             <div className={["row", "text-center"].join(' ')}>
@@ -39,15 +30,3 @@ function PageMain() {
         </div>
     );
 }
-
-function App() {
-    return <Router>
-        <Switch>
-            <Route path="/" exact component={PageMain}/>
-            <Route path="/" component={PageNotFound}/>
-
-        </Switch>
-    </Router>
-}
-
-export default App;

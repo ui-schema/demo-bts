@@ -7,7 +7,7 @@ export default function NavProject() {
             <span role={'img'} aria-label={'Quick Evaluate CodeSandbox'}>🚀</span>{' '}
             <a target="_blank"
                rel="noopener noreferrer"
-               href={'https://codesandbox.io/s/github/ui-schema/demo-bts/tree/master/?autoresize=1&fontsize=12&hidenavigation=1&module=%2Fsrc%2FSchema%2FDemoEditor.js'}>Run on CodeSandbox</a>
+               href={'https://codesandbox.io/s/github/ui-schema/demo-bts/tree/master/?autoresize=1&fontsize=12&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FDemoEditor.js'}>Run on CodeSandbox</a>
         </p>
         <hr style={{opacity: 0.1, margin: '4px 0 4px 26px'}}/>
         <p>
