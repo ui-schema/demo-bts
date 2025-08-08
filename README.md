@@ -49,4 +49,10 @@ Then run tests:
 npm test
 ```
 
+Then run tests in watch mode:
+
+```shell
+npm run tdd
+```
+
 

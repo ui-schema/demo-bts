@@ -34,7 +34,7 @@ const customBinding = {
             validatorPlugin,
             requiredPlugin,
         ]),
-        SchemaGridHandler, // use `import {GridItemPlugin} from '@ui-schema/ds-material/GridItemPlugin'` for MUI v7
+        SchemaGridHandler,
         ValidityReporter,
     ],
     widgets: {
@@ -263,9 +263,11 @@ const Editor = () => {
         </p>
         <hr style={{opacity: 0.2}}/>
         <p>
-            Code of this form/schema: <a target="_blank"
-                                         rel="noopener noreferrer"
-                                         href={'https://github.com/ui-schema/demo-cra/blob/master/src/components/DemoEditor.jsx'}>src/components/DemoEditor.jsx</a>
+            {'Code of this form/schema: '}
+            <a
+                target="_blank" rel="noopener noreferrer"
+                href={'https://github.com/ui-schema/demo-cra/blob/master/src/components/DemoEditor.jsx'}
+            >src/components/DemoEditor.jsx</a>
         </p>
     </React.Fragment>;
 };
