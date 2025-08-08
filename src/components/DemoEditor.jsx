@@ -4,7 +4,7 @@ import { UIMetaProvider } from '@ui-schema/react/UIMeta'
 import { UIStoreProvider, createStore } from '@ui-schema/react/UIStore'
 import { storeUpdater } from '@ui-schema/react/storeUpdater'
 import { WidgetEngine } from '@ui-schema/react/WidgetEngine'
-import { browserT } from '../t';
+import { browserT } from '../t.js';
 import { DefaultHandler } from '@ui-schema/react/DefaultHandler';
 import { ValidityReporter } from '@ui-schema/react/ValidityReporter';
 import { schemaPluginsAdapterBuilder } from '@ui-schema/react/SchemaPluginsAdapter';

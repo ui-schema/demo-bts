@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { userEvent } from '@vitest/browser/context'
-import App from './App';
+import App from './App.jsx';
 
 test('renders header', async() => {
     const {getByText} = render(<App/>);

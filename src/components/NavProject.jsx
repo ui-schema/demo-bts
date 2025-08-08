@@ -1,5 +1,5 @@
 import React from "react";
-import GithubLogo from "./GithubLogo";
+import GithubLogo from "./GithubLogo.jsx";
 
 export default function NavProject() {
     return <React.Fragment>

@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import NavProject from "./components/NavProject";
-import DemoEditor from "./components/DemoEditor";
+import NavProject from "./components/NavProject.jsx";
+import DemoEditor from "./components/DemoEditor.jsx";
 
 export default function App() {
     return (
